@@ -70,12 +70,13 @@ public class Congreso {
 		
 		int i = 0;
 		Auspiciante a = null;
+		List<Auspiciante> lstAuspiciantes = traerAuspiciantes();
 		
-		while(a == null && i < traerAuspiciantes().size()) {
+		while(a == null && i < lstAuspiciantes.size()) {
 			
-			if(traerAuspiciantes().get(i).getCuit().equals(cuit)) {
+			if(lstAuspiciantes.get(i).getCuit().equals(cuit)) {
 				
-				a = traerAuspiciantes().get(i);
+				a = lstAuspiciantes.get(i);
 
 			}
 			
@@ -130,11 +131,13 @@ public class Congreso {
 		Espectador espectador = null;
 		int i = 0 ;
 		
-		while(espectador == null && i < traerEspectadores().size()) {
+		List<Espectador> lstEspectadores = traerEspectadores();
+		
+		while(espectador == null && i < lstEspectadores.size()) {
 			
-			if(traerEspectadores().get(i).getNroDocumento() == nroDocumento) {
+			if(lstEspectadores.get(i).getNroDocumento() == nroDocumento) {
 				
-				espectador = traerEspectadores().get(i);
+				espectador = lstEspectadores.get(i);
 				
 			}
 			i++;
@@ -146,7 +149,11 @@ public class Congreso {
 	
 	
 	public boolean agregarEspectador(String movil, String mail, String nombre, String apellido,
-			String tipoDocumento, long nroDocumento, String nivelEstudio) {
+			String tipoDocumento, long nroDocumento, String nivelEstudio) throws Exception {
+		
+		if(traerEspectador(nroDocumento) != null ) {
+			throw new Exception ("el espectador con nroDocumento "+nroDocumento+" ya existe");
+		}
 		
 		int id = 1;
 		if(!lstPersonas.isEmpty()) {
